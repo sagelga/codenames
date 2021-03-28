@@ -19,7 +19,8 @@ After you have forked this repo (or directly commit to this repo), create a new 
 You shall use one of these prefix to name your branch.
 - `typos/<language-ISO-code>/<word-pack-name>` for word typos-related Pull Request.
 - `content/<language-ISO-code>/<word-pack-name>` for adding more words to the repo.
-- `patch/<issue-number>/<word-pack-name>` for any Python script patches and tweaks.
+- `feature/<issue-number>/<feature-name>` for adding Python scripts.
+- `patch/<issue-number>/<feature-name>` for patching Python script and tweaking.
 - `chore/` for editing any docs-based files (e.g. this CONTRIBUTING.md file)
 
 For example, if you want to add wordlist for Adults, create your branch as `content/en-en/adults` and start adding contents!
