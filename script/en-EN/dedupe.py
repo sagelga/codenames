@@ -3,18 +3,18 @@ import argparse
 import sys
 
 
-def start(prefix="en-EN/", file_name=input(), suffix="/wordlist.txt", new_file="/new.txt"):
+def start(prefix="en-EN", file_name="default", suffix="wordlist.txt", new_file="new.log", duplicate_file="duplicate.log"):
     prefix = "wordlist/" + prefix
 
-    result = dedupe("{}{}{}".format(prefix, file_name, suffix))
+    result = dedupe("{}/{}/{}".format(prefix, file_name, suffix))
     print(result["wordlist"])
 
     if len(result["dupe"]):
-        f = open("{}{}{}dupe.txt".format(prefix, file_name, suffix), "a")
+        f = open("{}/{}/{}".format(prefix, file_name, duplicate_file), "w")
         f.write("Duplicates detected\n")
         f.write("\n".join([str(x) for x in result["dupe"]]))
 
-    f = open("{}{}{}".format(prefix, file_name, new_file), "w")
+    f = open("{}/{}/{}".format(prefix, file_name, new_file), "w")
     f.write("\n".join([str(x) for x in result["wordlist"]]))
 
 
@@ -26,11 +26,11 @@ def dedupe(file_name):
     dupe = list()
 
     for x in f:
-        x = x.capitalize().rstrip("\n")
+        x = x.rstrip("\n").lstrip(" ").rstrip(" ").lower()
         if x not in wordlist:
-            wordlist.append(x)
+            wordlist.append(x.capitalize())
         else:
-            dupe.append(x)
+            dupe.append(x.capitalize())
 
     wordlist.sort()
 
@@ -41,8 +41,8 @@ def dedupe(file_name):
 options = "i:o:"
 long_options = ["input", "output"]
 
-input_dir = str()
-output_dir = str()
+input_dir = "en-EN"
+output_dir = "new.log"
 
 try:
     # Parsing argument
@@ -66,4 +66,4 @@ parser.add_argument("-i", "--input", help="Show Output")
 parser.add_argument("-o", "--output", help="Show Output")
 parser.parse_args()
 
-start(prefix=input_dir, suffix=new_file)
+start(prefix=input_dir, new_file=output_dir, file_name=input())
