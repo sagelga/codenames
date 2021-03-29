@@ -35,7 +35,7 @@ def main():
     start(prefix=input_dir, new_file=output_dir, file_name=input())
 
 
-def start(prefix="en-EN/", file_name=input(), suffix="/wordlist.txt", new_file="/new.txt"):
+def start(prefix="en-EN", file_name="default", suffix="wordlist.txt", new_file="new.log", duplicate_file="duplicate.log"):
     prefix = "wordlist/" + prefix
 
     result = dedupe("{}/{}/{}".format(prefix, file_name, suffix))
@@ -47,7 +47,7 @@ def start(prefix="en-EN/", file_name=input(), suffix="/wordlist.txt", new_file="
         f.write("Duplicates detected\n")
         f.write("\n".join([str(x) for x in result["dupe"]]))
 
-    f = open("{}{}{}".format(prefix, file_name, new_file), "w")
+    f = open("{}/{}/{}".format(prefix, file_name, new_file), "w")
     f.write("\n".join([str(x) for x in result["wordlist"]]))
 
 
